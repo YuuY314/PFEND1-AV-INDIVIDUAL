@@ -1,0 +1,23 @@
+.discover_banner {
+    height: 200px;
+    border-top: 1px solid #c3c3c3;
+    background-color: #F4EFE5;
+}
+
+.discover_banner img {
+    height: 20px;
+    width: 20px;
+}
+
+.discover_banner button {
+    background-color: #FDFCFA;
+    border: 1px solid #000000;
+}
+
+.discover_banner button:hover {
+    border: 1px solid #000000;
+}
+
+.discover_banner h2 {
+    font-family: var(--font-libre-baskerville);
+}
