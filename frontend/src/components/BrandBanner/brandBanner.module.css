@@ -1,0 +1,16 @@
+.brand_banner {
+    border-block: 1px solid #c3c3c3;
+}
+
+.brand_banner img {
+    height: 40px;
+    width: 40px;
+}
+
+.brand_banner p {
+    margin: 0;
+}
+
+.brand_banner span {
+    font-weight: 600;
+}

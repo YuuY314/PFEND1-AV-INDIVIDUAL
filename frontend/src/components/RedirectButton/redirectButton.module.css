@@ -1,0 +1,14 @@
+.redirect_button img {
+    height: 20px;
+    width: 20px;
+}
+
+.redirect_button {
+    background-color: #FDFCFA;
+    border: 1px solid #000000;
+    width: fit-content;
+}
+
+.redirect_button:hover {
+    border: 1px solid #000000;
+}

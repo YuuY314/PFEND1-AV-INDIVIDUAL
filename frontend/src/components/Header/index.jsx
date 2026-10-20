@@ -18,7 +18,7 @@ export default function Header(){
                 <div className="d-flex align-items-center gap-5">
                     <img src="heart.png"/>
                     <img src="bag.png"/>
-                    <img src="user.png"/>
+                    <Link href="login"><img src="user.png"/></Link>
                 </div>
             </nav>
         </header>
