@@ -1,0 +1,39 @@
+.register_banner {
+    background: linear-gradient(90deg, #3B111B 0%, #6A222F 48%, #963F4B 100%);
+}
+
+.register_banner div {
+    color: #FDFCFA;
+    width: 70%;
+}
+
+.register_banner div h1 {
+    font-family: var(--font-libre-baskerville);
+}
+
+.register_banner p {
+    color: #FDFCFA;
+}
+
+.register_banner p.alt_color {
+    color: #C69D5E;
+    font-weight: 600;
+}
+
+.register_form button {
+    background-color: #6A222F;
+    color: #FDFCFA;
+    font-weight: 600;
+    transition: .5s ease-in-out;
+}
+
+.register_form button:hover {
+    border: 1px solid #000000;
+}
+
+.register_form a {
+    text-decoration: none;
+    color: #6A222F;
+    font-weight: 600;
+}
+

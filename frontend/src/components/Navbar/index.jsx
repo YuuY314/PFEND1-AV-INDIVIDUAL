@@ -18,7 +18,7 @@ export default function Navbar(){
         <nav className={`d-flex align-items-center justify-content-evenly ${styles.navbar}`}>
             {
                 genres.map((g, idx) => (
-                    <Link key={idx} href="/" className="px-3">{g}</Link>
+                    <Link key={idx} href="/shelf" className="px-3">{g}</Link>
                 ))
             }
         </nav>

@@ -1,5 +1,5 @@
 .home_banner {
-    height: 60vh;
+    min-height: 50vh;
     background: linear-gradient(115deg, #3B111B 0%, #6A222F 48%, #963F4B 100%);
     color: #FDFCFA;
 }

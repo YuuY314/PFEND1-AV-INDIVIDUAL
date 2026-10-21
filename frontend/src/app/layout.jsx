@@ -25,7 +25,7 @@ const libreBaskerville = Libre_Baskerville({
 
 export const metadata = {
   title: "Entrelinhas",
-  description: "Livros & ...",
+  description: "Livros & Boas Histórias",
 };
 
 import Header from "@/components/Header";

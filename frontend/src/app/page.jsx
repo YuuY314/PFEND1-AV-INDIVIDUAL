@@ -1,12 +1,10 @@
-import styles from "./page.module.css";
-
 import BrandBanner from "@/components/BrandBanner";
 import HomeBanner from "@/components/HomeBanner";
 import DiscoverBanner from "@/components/DiscoverBanner";
 
 export default function Home() {
   return (
-    <main className={styles.main}>
+    <main>
       <HomeBanner/>
       <BrandBanner/>
       <DiscoverBanner

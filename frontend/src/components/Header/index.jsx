@@ -16,9 +16,9 @@ export default function Header(){
                     <input type="text" className="form-control" id="fieldText" placeholder="Busque por título, autor ou uma nova história"/>
                 </div>
                 <div className="d-flex align-items-center gap-5">
-                    <img src="heart.png"/>
-                    <img src="bag.png"/>
-                    <Link href="login"><img src="user.png"/></Link>
+                    <Link href="favorites"><img src="heart.png"/></Link>
+                    <Link href="bag"><img src="bag.png"/></Link>
+                    <Link href="login"className="d-flex gap-2 align-items-center"><img src="user.png"/> <h5>Entrar</h5></Link>
                 </div>
             </nav>
         </header>
