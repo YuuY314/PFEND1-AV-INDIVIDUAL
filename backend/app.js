@@ -23,6 +23,11 @@ import { criarLivroRoutes } from "./routes/livroRoutes.js";
 import { criarClienteRoutes } from "./routes/clienteRoutes.js";
 import { criarAdministradorRoutes } from "./routes/administradorRoutes.js";
 
+// Autenticar (service, controller e routes)
+import { criarAutenticarService } from "./services/AutenticarService.js";
+import { criarAutenticarController } from "./controllers/AutenticarController.js";
+import { criarAutenticarRoutes } from "./routes/AutenticarRoutes.js";
+
 export const app = express();
 
 // CORS necessário pelo frontend e backend usarem portas diferentes
@@ -68,6 +73,11 @@ const administradorService = criarAdministradorService({ administradorModel });
 const administradorController = criarAdministradorController({ administradorService });
 const administradorRoutes = criarAdministradorRoutes({ administradorController });
 
+// ==================== AUTENTICAR ====================
+const autenticarService = criarAutenticarService({ clienteModel, administradorModel });
+const autenticarController = criarAutenticarController({ autenticarService });
+const autenticarRoutes = criarAutenticarRoutes({ autenticarController });
+
 // Rota de teste do servidor
 app.get("/api/check", (req, res) => {
     res.status(200).json({
@@ -80,6 +90,7 @@ app.get("/api/check", (req, res) => {
 app.use("/api/livro", livroRoutes);
 app.use("/api/cliente", clienteRoutes);
 app.use("/api/administrador", administradorRoutes);
+app.use("/api/autenticar", autenticarRoutes);
 
 // Rota para caminhos inexistentes
 app.use((req, res) => {

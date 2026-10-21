@@ -1,6 +1,6 @@
 export function criarClienteModel({ pool }){
     async function listarTodos(){
-        const [linhas] = await pool.query("SELECT id, nome, email FROM clientes");
+        const [linhas] = await pool.query("SELECT id, nome, email, senha FROM clientes");
         return linhas;
     }
 

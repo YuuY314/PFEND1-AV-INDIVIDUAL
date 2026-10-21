@@ -10,7 +10,7 @@ export default function DiscoverBanner({h6, h2, p, buttonText }){
                 <h2>{h2}</h2>
                 <p>{p}</p>
             </div>
-            <RedirectButton buttonText={buttonText}/>
+            <RedirectButton buttonText={buttonText} href="shelf"/>
         </section>
     );
 }

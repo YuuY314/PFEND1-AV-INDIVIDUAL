@@ -14,7 +14,7 @@ export default function HomeBanner(){
                     começa <span>aqui.</span>
                 </h1>
                 <p>Entre páginas e descobertas, um livro espera por você. Encontre leituras que inspiram, acolhem e ficam.</p>
-                <RedirectButton buttonText="Explore nossos livros" className="w-25"/>
+                <RedirectButton buttonText="Explore nossos livros" href="shelf" className="w-25"/>
             </div>
         </section>
     );

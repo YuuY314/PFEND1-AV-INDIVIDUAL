@@ -1,0 +1,19 @@
+.shelf_sidebar {
+    width: 20%;
+}
+
+.shelf_main {
+    width: 60%;
+}
+
+.shelf_navbar {
+    width: 100%;
+}
+
+.shelf_navbar h2 {
+    font-family: var(--font-libre-baskerville);
+}
+
+.shelf_navbar p {
+    margin: 0;
+}

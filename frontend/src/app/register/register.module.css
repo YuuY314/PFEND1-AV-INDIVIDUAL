@@ -1,5 +1,6 @@
 .register_banner {
     background: linear-gradient(90deg, #3B111B 0%, #6A222F 48%, #963F4B 100%);
+    width: 40%;
 }
 
 .register_banner div {
@@ -18,6 +19,10 @@
 .register_banner p.alt_color {
     color: #C69D5E;
     font-weight: 600;
+}
+
+.register_form {
+    width: 60%;
 }
 
 .register_form button {

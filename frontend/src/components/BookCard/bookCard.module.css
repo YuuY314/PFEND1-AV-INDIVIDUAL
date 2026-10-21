@@ -1,0 +1,13 @@
+.book_card {
+    width: 180px;
+}
+
+.book_card h4 {
+    font-family: var(--font-libre-baskerville);
+}
+
+.book_card img {
+    width: 100%;
+    height: 200px;
+}
+

@@ -1,5 +1,6 @@
 .login_banner {
     background: linear-gradient(90deg, #3B111B 0%, #6A222F 48%, #963F4B 100%);
+    width: 40%;
 }
 
 .login_banner div {
@@ -18,6 +19,10 @@
 .login_banner p.alt_color {
     color: #C69D5E;
     font-weight: 600;
+}
+
+.login_form {
+    width: 60%;
 }
 
 .login_form button {
