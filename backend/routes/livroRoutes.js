@@ -8,6 +8,7 @@ export function criarLivroRoutes({ livroController }){
     router.post("/", livroController.criar);
     router.delete("/:id", livroController.deletar);
     router.put("/:id", livroController.atualizar);
+    router.patch("/:id/estoque", livroController.reduzirEstoque);
 
     return router;
 }

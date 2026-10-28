@@ -1,0 +1,10 @@
+.buy_button {
+    background-color: #6A222F;
+    color: #FDFCFA;
+    font-weight: 600;
+    transition: .5s ease-in-out;
+}
+
+.buy_button:hover {
+    border: 1px solid #000000;
+}

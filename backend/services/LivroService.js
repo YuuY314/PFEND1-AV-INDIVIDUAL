@@ -77,5 +77,34 @@ export function criarLivroService({ livroModel }) {
         });
     }
 
-    return { listar, buscarPorId, criar, deletarPorId, atualizar };
+    async function reduzirEstoque(idRecebido, quantidadeRecebida = 1) {
+        const id = Number(idRecebido);
+
+        if (!Number.isInteger(id) || id <= 0) {
+            throw new Error("ID deve ser um número inteiro positivo");
+        }
+
+        const quantidade = Number(quantidadeRecebida);
+
+        if (!Number.isInteger(quantidade) || quantidade <= 0) {
+            throw new Error("Quantidade deve ser um número inteiro positivo");
+        }
+
+        const livroAtualizado = await livroModel.reduzirEstoque(id, quantidade);
+
+        if (livroAtualizado) {
+            return livroAtualizado;
+        }
+
+        // Não atualizou: ou o livro não existe, ou não há estoque suficiente
+        const livro = await livroModel.buscarPorId(id);
+
+        if (!livro) {
+            throw new Error(`Livro ${id} não encontrado`);
+        }
+
+        throw new Error(`Estoque insuficiente: restam ${livro.estoque} unidade(s)`);
+    }
+
+    return { listar, buscarPorId, criar, deletarPorId, atualizar, reduzirEstoque };
 }

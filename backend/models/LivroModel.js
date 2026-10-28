@@ -68,5 +68,18 @@ export function criarLivroModel({ pool }){
         return {...livro, id: Number(id), preco: Number(livro.preco)};
     }
 
-    return { listarTodos, buscarPorId, criar, deletarPorId, atualizar };
+    // Subtrai do estoque só se ainda houver unidades suficientes (a checagem é feita no próprio UPDATE, assim dois clientes comprando ao mesmo tempo não deixam o estoque negativo)
+    async function reduzirEstoque(id, quantidade) {
+        const sql = "UPDATE livros SET estoque = estoque - ? WHERE id = ? AND estoque >= ?";
+
+        const [resultado] = await pool.query(sql, [quantidade, id, quantidade]);
+
+        if (resultado.affectedRows === 0) {
+            return null;
+        }
+
+        return buscarPorId(id);
+    }
+
+    return { listarTodos, buscarPorId, criar, deletarPorId, atualizar, reduzirEstoque };
 }

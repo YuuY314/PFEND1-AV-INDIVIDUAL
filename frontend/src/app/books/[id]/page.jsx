@@ -5,12 +5,13 @@ import { useEffect, useState } from "react";
 
 import styles from "./book.module.css";
 import { formatarMoeda } from "@/utils/formatarMoeda";
-import RedirectButton from "@/components/RedirectButton";
 
 export default function Book(){
     const params = useParams();
     const [ book, setBook ] = useState();
     const [ error, setError ] = useState("");
+    const [ quantity, setQuantity ] = useState(1);
+    const [ sending, setSending ] = useState(false);
 
     useEffect(() => {
         fetch(`http://localhost:3001/api/livro/${params.id}`)
@@ -22,6 +23,39 @@ export default function Book(){
             })
         .catch(error => setError(error.message));
     }, []);
+
+    async function buy(event) {
+        event.preventDefault();
+        setError(null);
+        setSending(true);
+
+        try {
+            const requisition = await fetch(
+                `http://localhost:3001/api/livro/${params.id}/estoque`,
+                {
+                    method: "PATCH",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    credentials: "include",
+                    body: JSON.stringify({ quantidade: Number(quantity) }),
+                }
+            );
+
+            const result = await requisition.json();
+
+            if (!requisition.ok) {
+                throw new Error(result.erro || "Não foi possível concluir a compra.");
+            }
+
+            setBook(result.dados);
+            setError({ tipo: "success", texto: result.mensagem });
+        } catch (error) {
+            setError({ tipo: "danger", texto: error.message });
+        } finally {
+            setSending(false);
+        }
+    }
 
     return (
         <main className={`d-flex flex-column justify-content-center ${styles.book_main}`}>
@@ -40,7 +74,33 @@ export default function Book(){
                         <h5>{book.categoria}</h5>
                         <h3>Descrição</h3>
                         <p>{book.descricao}</p>
-                        <RedirectButton buttonText="Comprar" href="teste" />
+
+                        <form onSubmit={buy} className="d-flex flex-column gap-3">
+                            <div className="input-group">
+                                <label htmlFor="quantity" className="input-group-text">Quantidade</label>
+                                <input
+                                    type="number"
+                                    className="form-control"
+                                    id="quantity"
+                                    min="1"
+                                    max={book.estoque}
+                                    value={quantity}
+                                    onChange={(event) => setQuantity(event.target.value)}
+                                />
+                            </div>
+                            <button
+                                type="submit"
+                                className={`btn ${styles.buy_button}`}
+                                disabled={sending || book.estoque === 0}
+                            >
+                                {book.estoque === 0 ? "Esgotado" : "Comprar"}
+                            </button>
+                            {error && (
+                                <div className={`alert alert-${error.tipo} mb-0`} role="alert">
+                                    {error.texto}
+                                </div>
+                            )}
+                        </form>
                     </div>
                 </section>
             }

@@ -11,12 +11,12 @@ import { formatarMoeda } from "@/utils/formatarMoeda.js";
 
 const atalhos = [
     { titulo: "Meus pedidos", texto: "Acompanhe suas compras.", icone: "/bag.png", href: "#pedidos" },
-    { titulo: "Favoritos", texto: "Os bookList que você quer ler.", icone: "/heart.png", href: "/favorites" },
+    { titulo: "Favoritos", texto: "Os livros que você quer ler.", icone: "/heart.png", href: "/favorites" },
     { titulo: "Ofertas", texto: "Promoções para presentear.", icone: "/gift.png", href: "/shelf" },
     { titulo: "Meus dados", texto: "Confira as informações da conta.", icone: "/user.png", href: "#dados" },
 ];
 
-// dados fixos (tabela "pedidos" já está na migration)
+// TODO: trocar por dados da API quando a rota de pedidos existir (tabela "pedidos" já está na migration)
 const pedidosExemplo = [
     { id: 1024, data: "21/10/2026", status: "Enviado", total: 89.8 },
     { id: 1017, data: "02/10/2026", status: "Entregue", total: 45.9 },
@@ -33,14 +33,14 @@ const corDoStatus = {
 };
 
 export default function User(){
-    const [ user, setUser ] = useState(null);
-    const [ loading, setLoading ] = useState(true);
+    const [ usuario, setUsuario ] = useState(null);
+    const [ carregando, setCarregando ] = useState(true);
 
-    const [ bookList, setBookList ] = useState([]);
-    const [ loadingBookList, setLoadingBookList ] = useState(true);
-    const [ errorBookList, setErrorBookList ] = useState("");
+    const [ livros, setLivros ] = useState([]);
+    const [ carregandoLivros, setCarregandoLivros ] = useState(true);
+    const [ erroLivros, setErroLivros ] = useState("");
 
-    // confere a sessão no backend; quem não está logado volta para o login
+    // Rota protegida: confere a sessão no backend; quem não está logado volta para o login
     useEffect(() => {
         fetch("http://localhost:3001/api/autenticar/me", { credentials: "include" })
             .then(res => res.json())
@@ -50,47 +50,50 @@ export default function User(){
                 } else if (data.dados.tipo !== "cliente") {
                     window.location.href = "/";
                 } else {
-                    setUser(data.dados);
+                    setUsuario(data.dados);
                 }
             })
             .catch(() => { window.location.href = "/login"; })
-            .finally(() => setLoading(false));
+            .finally(() => setCarregando(false));
     }, []);
 
     useEffect(() => {
-        if (!user) return;
+        if (!usuario) return;
 
         fetch("http://localhost:3001/api/livro")
             .then((res) => {
                 if (!res.ok) throw new Error("Não foi possível carregar as sugestões.");
                 return res.json();
             })
-            .then((data) => setBookList((data.dados ?? []).slice(0, 6)))
-            .catch((error) => setErrorBookList(error.message))
-            .finally(() => setLoadingBookList(false));
-    }, [user]);
+            .then((data) => setLivros((data.dados ?? []).slice(0, 6)))
+            .catch((error) => setErroLivros(error.message))
+            .finally(() => setCarregandoLivros(false));
+    }, [usuario]);
 
-    if (loading || !user) {
+    if (carregando || !usuario) {
         return (
             <main className="d-flex align-items-center justify-content-center">
                 <div className="spinner-border" role="status">
-                    <span className="visually-hidden">loading...</span>
+                    <span className="visually-hidden">Carregando...</span>
                 </div>
             </main>
         );
     }
 
-    const primeiroNome = user.nome?.trim().split(" ")[0] || "leitor";
+    const primeiroNome = usuario.nome?.trim().split(" ")[0] || "leitor";
 
     return (
         <main>
+            {/* ===== Boas-vindas ===== */}
             <section className={`d-flex flex-column align-items-start gap-3 p-5 ${styles.user_banner}`}>
                 <p className={styles.alt_color}>ÁREA DO LEITOR</p>
                 <h1>Olá, {primeiroNome}!</h1>
                 <p>Que bom ter você de volta. Veja seus pedidos, descubra novas leituras e cuide da sua conta.</p>
                 <RedirectButton buttonText="Explorar a estante" href="/shelf"/>
             </section>
+
             <div className="container py-5">
+                {/* ===== Atalhos ===== */}
                 <section className="row g-3 mb-5">
                     {atalhos.map((atalho) => (
                         <div key={atalho.titulo} className="col-6 col-lg-3">
@@ -104,6 +107,8 @@ export default function User(){
                         </div>
                     ))}
                 </section>
+
+                {/* ===== Pedidos recentes + dados da conta ===== */}
                 <section className="row g-4 mb-5">
                     <div id="pedidos" className="col-lg-8">
                         <div className="card h-100">
@@ -135,6 +140,7 @@ export default function User(){
                             )}
                         </div>
                     </div>
+
                     <div id="dados" className="col-lg-4">
                         <div className="card h-100">
                             <div className="card-header">
@@ -143,15 +149,17 @@ export default function User(){
                             <div className="card-body d-flex flex-column justify-content-between gap-3">
                                 <dl className="row mb-0">
                                     <dt className="col-4">Nome</dt>
-                                    <dd className="col-8">{user.nome}</dd>
+                                    <dd className="col-8">{usuario.nome}</dd>
                                     <dt className="col-4">E-mail</dt>
-                                    <dd className="col-8 text-break mb-0">{user.email}</dd>
+                                    <dd className="col-8 text-break mb-0">{usuario.email}</dd>
                                 </dl>
                                 <span className="badge text-bg-light border align-self-start">Cliente</span>
                             </div>
                         </div>
                     </div>
                 </section>
+
+                {/* ===== Sugestões de leitura ===== */}
                 <section>
                     <div className="d-flex align-items-end justify-content-between mb-3">
                         <div>
@@ -160,16 +168,17 @@ export default function User(){
                         </div>
                         <Link href="/shelf" className={styles.link_ver_todos}>Ver todos</Link>
                     </div>
-                    {loadingBookList ? (
+
+                    {carregandoLivros ? (
                         <div className="spinner-border" role="status">
-                            <span className="visually-hidden">loading bookList...</span>
+                            <span className="visually-hidden">Carregando livros...</span>
                         </div>
-                    ) : errorBookList ? (
-                        <div className="alert alert-danger" role="alert">{errorBookList}</div>
-                    ) : bookList.length > 0 ? (
+                    ) : erroLivros ? (
+                        <div className="alert alert-danger" role="alert">{erroLivros}</div>
+                    ) : livros.length > 0 ? (
                         <div className="d-flex flex-wrap gap-4">
-                            {bookList.map((book) => (
-                                <BookCard key={book.id} book={book}/>
+                            {livros.map((livro) => (
+                                <BookCard key={livro.id} book={livro}/>
                             ))}
                         </div>
                     ) : (

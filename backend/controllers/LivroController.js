@@ -90,5 +90,50 @@ export function criarLivroController({ livroService }) {
         }
     }
 
-    return { listar, buscar, criar, deletar, atualizar };
+    async function reduzirEstoque(req, res, next) {
+        try {
+            const usuario = req.session.usuario;
+
+            if (!usuario) {
+                return res.status(401).json({
+                    sucesso: false,
+                    erro: "Faça login para comprar"
+                });
+            }
+
+            if (usuario.tipo !== "cliente") {
+                return res.status(403).json({
+                    sucesso: false,
+                    erro: "Apenas clientes podem comprar"
+                });
+            }
+
+            const livro = await livroService.reduzirEstoque(
+                req.params.id,
+                req.body?.quantidade
+            );
+
+            res.status(200).json({
+                sucesso: true,
+                mensagem: "Compra realizada! Estoque atualizado",
+                dados: livro
+            });
+        } catch (erro) {
+            if (erro.message.includes("ID deve") || erro.message.includes("Quantidade deve")) {
+                return res.status(400).json({ sucesso: false, erro: erro.message });
+            }
+
+            if (erro.message.includes("não encontrado")) {
+                return res.status(404).json({ sucesso: false, erro: erro.message });
+            }
+
+            if (erro.message.includes("Estoque insuficiente")) {
+                return res.status(409).json({ sucesso: false, erro: erro.message });
+            }
+
+            next(erro);
+        }
+    }
+
+    return { listar, buscar, criar, deletar, atualizar, reduzirEstoque };
 }
