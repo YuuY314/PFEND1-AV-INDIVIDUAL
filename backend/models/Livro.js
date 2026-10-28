@@ -36,7 +36,7 @@ export default class Livro {
         this.titulo = titulo;
         this.autor = autor;
         this.categoria = categoria;
-        this.preco = preco;
+        this.preco = formatarMoedar(preco);
         this.estoque = estoque;
         this.descricao = descricao ?? "";
         this.imagem_url = imagem_url ?? "";

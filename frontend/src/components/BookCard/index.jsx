@@ -1,16 +1,17 @@
+import Link from "next/link";
+import { formatarMoeda } from "@/utils/formatarMoeda.js";
+
 import styles from "./bookCard.module.css";
 
-import Link from "next/link";
-
-export default function BookCard(){
+export default function BookCard({ book }){
     return (
-        <Link href="" className={styles.book_card}>
+        <Link href={`/books/${book.id}`} className={styles.book_card}>
             <div className="d-flex flex-column gap-3">
-                <img src="livro1.png" className="object-fit-contain"/>
+                <img src={book.imagem_url} className="object-fit-contain"/>
                 <div>
-                    <h5>A Guerra dos Tronos</h5>
-                    <p>Autor</p>
-                    <h6>R$ 39,90</h6>
+                    <h5>{book.titulo}</h5>
+                    <p>{book.autor}</p>
+                    <h6>{formatarMoeda(book.preco)}</h6>
                 </div>
             </div>
         </Link>

@@ -1,7 +1,25 @@
+"use client";
+
+import { useEffect, useState } from "react";
 import BookCard from "@/components/BookCard";
+
 import styles from "./shelf.module.css";
 
 export default function Shelf(){
+    const [ bookList, setBookList ] = useState([]);
+    const [ error, setError ] = useState("");
+
+    useEffect(() => {
+        fetch("http://localhost:3001/api/livro")
+        .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setBookList(data.dados);
+                setError("");
+            })
+        .catch(error => setError(error.message));
+    }, []);
+
     return (
         <main className="d-flex justify-content-center gap-5 p-5">
             <section className={styles.shelf_sidebar}>
@@ -60,18 +78,17 @@ export default function Shelf(){
                         </div>
                     </div>
                 </section>
-                <section className="d-flex flex-wrap gap-4 justify-content-start">
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                    <BookCard/>
-                </section>
+                {bookList.length > 0 ? 
+                    <section className="d-flex flex-wrap gap-4 justify-content-start">
+                        {bookList.map((book) => (
+                            <BookCard key={book.id} book={book}/>
+                        ))}
+                    </section>
+                :
+                    <section className="d-flex flex-wrap gap-4 justify-content-start">
+                        <h2>Oh não! Nossa estante está vazia! Volte mais tarde...</h2>
+                    </section>
+                }
             </section>
         </main>
     );
