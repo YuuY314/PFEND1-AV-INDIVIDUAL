@@ -52,18 +52,24 @@ export default function Shelf(){
                     <div className="d-flex align-items-center justify-content-between">
                         <p>18 livros encontrados</p>
                         <div className="form-field">
-                            <label htmlFor="exampleFormControlSelect2" className="form-label">
-                                Example select
-                            </label>
                             <select className="form-control" id="exampleFormControlSelect2">
-                                <option value={1}>One</option>
-                                <option value={2}>Two</option>
-                                <option value={3}>Three</option>
+                                <option value={1}>Mais vendidos</option>
+                                <option value={2}>Menor preço</option>
+                                <option value={3}>Maior preço</option>
                             </select>
                         </div>
                     </div>
                 </section>
-                <section>
+                <section className="d-flex flex-wrap gap-4 justify-content-start">
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
+                    <BookCard/>
                     <BookCard/>
                 </section>
             </section>
