@@ -1,0 +1,45 @@
+.user_banner {
+    min-height: 40vh;
+    justify-content: center;
+    background: linear-gradient(115deg, #3B111B 0%, #6A222F 48%, #963F4B 100%);
+}
+
+.user_banner h1 {
+    color: #FDFCFA;
+    font-family: var(--font-libre-baskerville);
+    font-size: 3rem;
+}
+
+.user_banner p {
+    color: #FDFCFA;
+    max-width: 40ch;
+}
+
+.user_banner p.alt_color {
+    color: #C69D5E;
+    font-weight: 500;
+}
+
+a.atalho {
+    background-color: #FDFCFA;
+    transition: .2s ease-in-out;
+}
+
+a.atalho:hover {
+    background-color: #F4EFE5;
+    transform: translateY(-2px);
+}
+
+.section_title {
+    font-family: var(--font-libre-baskerville);
+}
+
+.link_ver_todos {
+    color: #6A222F;
+    font-weight: 600;
+    text-decoration: none;
+}
+
+.link_ver_todos:hover {
+    text-decoration: underline;
+}

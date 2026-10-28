@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 
 import styles from "./book.module.css";
 import { formatarMoeda } from "@/utils/formatarMoeda";
+import RedirectButton from "@/components/RedirectButton";
 
 export default function Book(){
     const params = useParams();
@@ -32,12 +33,14 @@ export default function Book(){
                         <h4>{book.autor}</h4>
                         <h2>{formatarMoeda(book.preco)}</h2>
                         <h5>Em estoque: {book.estoque}</h5>
+
                         <hr />
 
                         <h3>Categoria</h3>
                         <h5>{book.categoria}</h5>
                         <h3>Descrição</h3>
                         <p>{book.descricao}</p>
+                        <RedirectButton buttonText="Comprar" href="teste" />
                     </div>
                 </section>
             }

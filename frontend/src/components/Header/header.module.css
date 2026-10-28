@@ -31,3 +31,51 @@
     margin: 0;
     color: #6A222F;
 }
+
+
+/* ========== Menu do usuário logado (dropdown do Bootstrap) ========== */
+
+.user_placeholder {
+    display: inline-block;
+    width: 110px;
+    height: 24px;
+}
+
+.header .user_toggle {
+    background: transparent;
+    border: 0;
+    padding: .25rem;
+    border-radius: .5rem;
+    transition: .2s ease-in-out;
+}
+
+.header .user_dropdown:hover .user_toggle {
+    background-color: #dddbd7;
+}
+
+/* O Bootstrap esconde o menu e mostra com a classe "show"; aqui mostramos no hover */
+.header .user_dropdown:hover .user_menu {
+    display: block;
+}
+
+.header .user_menu {
+    --bs-dropdown-min-width: 14rem;
+    --bs-dropdown-border-color: #c3c3c3;
+}
+
+.header .user_menu a,
+.header .user_menu button {
+    color: #6A222F;
+    padding: .5rem 1rem;
+    border-radius: 0;
+}
+
+.header .user_menu a:hover,
+.header .user_menu button:hover {
+    background-color: #F4EFE5;
+}
+
+.header .user_menu h6 {
+    color: #6A222F;
+    opacity: .75;
+}
