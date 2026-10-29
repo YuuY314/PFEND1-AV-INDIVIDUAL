@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1:3309
--- Tempo de geração: 29/10/2026 às 02:20
+-- Tempo de geração: 29/10/2026 às 03:05
 -- Versão do servidor: 26.7.0
 -- Versão do PHP: 8.2.12
 
@@ -84,26 +84,26 @@ CREATE TABLE `livros` (
 --
 
 INSERT INTO `livros` (`id`, `titulo`, `autor`, `categoria`, `preco`, `estoque`, `descricao`, `imagem_url`) VALUES
-(1, 'O Hobbit', 'J.R.R. Tolkien', 'Fantasia', 49.90, 0, 'A aventura de Bilbo Bolseiro em uma jornada inesperada pela Terra-média.', 'https://placehold.co/300x450?text=O+Hobbit'),
-(2, 'O Senhor dos Anéis: A Sociedade do Anel', 'J.R.R. Tolkien', 'Fantasia', 69.90, 12, 'O início da jornada para destruir o Um Anel e impedir o retorno de Sauron.', 'https://placehold.co/300x450?text=Sociedade+do+Anel'),
-(3, 'Harry Potter e a Pedra Filosofal', 'J.K. Rowling', 'Fantasia', 44.90, 20, 'Harry descobre sua origem mágica e inicia seus estudos em Hogwarts.', 'https://placehold.co/300x450?text=Harry+Potter'),
-(4, 'A Guerra dos Tronos', 'George R.R. Martin', 'Fantasia', 59.90, 10, 'Famílias nobres disputam o poder em um reino marcado por intrigas e guerras.', 'https://placehold.co/300x450?text=A+Guerra+dos+Tronos'),
-(5, 'Duna', 'Frank Herbert', 'Ficção Científica', 64.90, 8, 'Paul Atreides enfrenta conflitos políticos e profecias no planeta desértico Arrakis.', 'https://placehold.co/300x450?text=Duna'),
-(6, '1984', 'George Orwell', 'Distopia', 34.90, 18, 'Um homem vive sob a vigilância constante de um regime totalitário.', 'https://placehold.co/300x450?text=1984'),
-(7, 'Admirável Mundo Novo', 'Aldous Huxley', 'Distopia', 39.90, 11, 'Uma sociedade futurista questiona a liberdade, o condicionamento e a felicidade.', 'https://placehold.co/300x450?text=Admiravel+Mundo+Novo'),
-(8, 'Dom Casmurro', 'Machado de Assis', 'Literatura Brasileira', 24.90, 25, 'Bentinho narra sua história e levanta dúvidas sobre seu relacionamento com Capitu.', 'https://placehold.co/300x450?text=Dom+Casmurro'),
-(9, 'Memórias Póstumas de Brás Cubas', 'Machado de Assis', 'Literatura Brasileira', 29.90, 14, 'Um narrador defunto revisita sua vida com ironia e crítica à sociedade.', 'https://placehold.co/300x450?text=Braz+Cubas'),
-(10, 'O Cortiço', 'Aluísio Azevedo', 'Literatura Brasileira', 27.90, 16, 'Um romance naturalista sobre desigualdade e relações sociais em uma habitação coletiva.', 'https://placehold.co/300x450?text=O+Cortico'),
-(11, 'Crime e Castigo', 'Fiódor Dostoiévski', 'Romance', 54.90, 9, 'Um jovem estudante enfrenta as consequências psicológicas e morais de um crime.', 'https://placehold.co/300x450?text=Crime+e+Castigo'),
-(12, 'Orgulho e Preconceito', 'Jane Austen', 'Romance', 32.90, 17, 'Elizabeth Bennet e Mr. Darcy enfrentam preconceitos e expectativas sociais.', 'https://placehold.co/300x450?text=Orgulho+e+Preconceito'),
-(13, 'O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'Literatura Infantojuvenil', 29.90, 22, 'Um piloto conhece um pequeno príncipe que compartilha suas experiências e reflexões.', 'https://placehold.co/300x450?text=O+Pequeno+Principe'),
-(14, 'Percy Jackson e o Ladrão de Raios', 'Rick Riordan', 'Fantasia', 42.90, 13, 'Percy descobre sua ligação com a mitologia grega e parte em uma missão perigosa.', 'https://placehold.co/300x450?text=Percy+Jackson'),
-(15, 'O Código Da Vinci', 'Dan Brown', 'Suspense', 47.90, 7, 'Um simbologista investiga pistas e segredos ligados a uma antiga conspiração.', 'https://placehold.co/300x450?text=Codigo+Da+Vinci'),
-(16, 'Sapiens: Uma Breve História da Humanidade', 'Yuval Noah Harari', 'História', 59.90, 10, 'Uma análise da evolução humana e das transformações das sociedades ao longo do tempo.', 'https://placehold.co/300x450?text=Sapiens'),
-(17, 'O Poder do Hábito', 'Charles Duhigg', 'Desenvolvimento Pessoal', 44.90, 12, 'Uma exploração de como os hábitos funcionam e como podem ser transformados.', 'https://placehold.co/300x450?text=O+Poder+do+Habito'),
-(18, 'Clean Code', 'Robert C. Martin', 'Tecnologia', 89.90, 6, 'Princípios e práticas para escrever código mais legível, organizado e sustentável.', 'https://placehold.co/300x450?text=Clean+Code'),
-(19, 'Entendendo Algoritmos', 'Aditya Y. Bhargava', 'Tecnologia', 74.90, 9, 'Uma introdução visual aos principais algoritmos e conceitos fundamentais da computação.', 'https://placehold.co/300x450?text=Entendendo+Algoritmos'),
-(20, 'O Nome do Vento', 'Patrick Rothfuss', 'Fantasia', 64.90, 5, 'Kvothe conta sua trajetória, desde a infância até sua formação como músico e arcanista.', 'https://placehold.co/300x450?text=O+Nome+do+Vento'),
+(1, 'O Hobbit', 'J.R.R. Tolkien', 'Fantasia', 49.90, 0, 'A aventura de Bilbo Bolseiro em uma jornada inesperada pela Terra-média.', 'https://covers.openlibrary.org/b/id/14826646-L.jpg'),
+(2, 'O Senhor dos Anéis: A Sociedade do Anel', 'J.R.R. Tolkien', 'Fantasia', 69.90, 12, 'O início da jornada para destruir o Um Anel e impedir o retorno de Sauron.', 'https://covers.openlibrary.org/b/id/8178141-L.jpg'),
+(3, 'Harry Potter e a Pedra Filosofal', 'J.K. Rowling', 'Fantasia', 44.90, 20, 'Harry descobre sua origem mágica e inicia seus estudos em Hogwarts.', 'https://covers.openlibrary.org/b/id/8436965-L.jpg'),
+(4, 'A Guerra dos Tronos', 'George R.R. Martin', 'Fantasia', 59.90, 10, 'Famílias nobres disputam o poder em um reino marcado por intrigas e guerras.', 'https://covers.openlibrary.org/b/id/15139462-L.jpg'),
+(5, 'Duna', 'Frank Herbert', 'Ficção Científica', 64.90, 8, 'Paul Atreides enfrenta conflitos políticos e profecias no planeta desértico Arrakis.', 'https://covers.openlibrary.org/b/id/10368109-L.jpg'),
+(6, '1984', 'George Orwell', 'Distopia', 34.90, 18, 'Um homem vive sob a vigilância constante de um regime totalitário.', 'https://covers.openlibrary.org/b/id/8172473-L.jpg'),
+(7, 'Admirável Mundo Novo', 'Aldous Huxley', 'Distopia', 39.90, 11, 'Uma sociedade futurista questiona a liberdade, o condicionamento e a felicidade.', 'https://covers.openlibrary.org/b/id/12717219-L.jpg'),
+(8, 'Dom Casmurro', 'Machado de Assis', 'Literatura Brasileira', 24.90, 25, 'Bentinho narra sua história e levanta dúvidas sobre seu relacionamento com Capitu.', 'https://covers.openlibrary.org/b/id/15156099-L.jpg'),
+(9, 'Memórias Póstumas de Brás Cubas', 'Machado de Assis', 'Literatura Brasileira', 29.90, 14, 'Um narrador defunto revisita sua vida com ironia e crítica à sociedade.', 'https://covers.openlibrary.org/b/id/14631343-L.jpg'),
+(10, 'O Cortiço', 'Aluísio Azevedo', 'Literatura Brasileira', 27.90, 16, 'Um romance naturalista sobre desigualdade e relações sociais em uma habitação coletiva.', 'https://covers.openlibrary.org/b/id/14404371-L.jpg'),
+(11, 'Crime e Castigo', 'Fiódor Dostoiévski', 'Romance', 54.90, 9, 'Um jovem estudante enfrenta as consequências psicológicas e morais de um crime.', 'https://covers.openlibrary.org/b/id/14630368-L.jpg'),
+(12, 'Orgulho e Preconceito', 'Jane Austen', 'Romance', 32.90, 17, 'Elizabeth Bennet e Mr. Darcy enfrentam preconceitos e expectativas sociais.', 'https://covers.openlibrary.org/b/id/8094238-L.jpg'),
+(13, 'O Pequeno Príncipe', 'Antoine de Saint-Exupéry', 'Literatura Infantojuvenil', 29.90, 22, 'Um piloto conhece um pequeno príncipe que compartilha suas experiências e reflexões.', 'https://covers.openlibrary.org/b/id/15096605-L.jpg'),
+(14, 'Percy Jackson e o Ladrão de Raios', 'Rick Riordan', 'Fantasia', 42.90, 13, 'Percy descobre sua ligação com a mitologia grega e parte em uma missão perigosa.', 'https://covers.openlibrary.org/b/id/8747799-L.jpg'),
+(15, 'O Código Da Vinci', 'Dan Brown', 'Suspense', 47.90, 7, 'Um simbologista investiga pistas e segredos ligados a uma antiga conspiração.', 'https://covers.openlibrary.org/b/id/10578429-L.jpg'),
+(16, 'Sapiens: Uma Breve História da Humanidade', 'Yuval Noah Harari', 'História', 59.90, 10, 'Uma análise da evolução humana e das transformações das sociedades ao longo do tempo.', 'https://covers.openlibrary.org/b/id/14540965-L.jpg'),
+(17, 'O Poder do Hábito', 'Charles Duhigg', 'Desenvolvimento Pessoal', 44.90, 12, 'Uma exploração de como os hábitos funcionam e como podem ser transformados.', 'https://covers.openlibrary.org/b/id/14621911-L.jpg'),
+(18, 'Clean Code', 'Robert C. Martin', 'Tecnologia', 89.90, 6, 'Princípios e práticas para escrever código mais legível, organizado e sustentável.', 'https://covers.openlibrary.org/b/id/8065615-L.jpg'),
+(19, 'Entendendo Algoritmos', 'Aditya Y. Bhargava', 'Tecnologia', 74.90, 9, 'Uma introdução visual aos principais algoritmos e conceitos fundamentais da computação.', 'https://covers.openlibrary.org/b/id/13780321-L.jpg'),
+(20, 'O Nome do Vento', 'Patrick Rothfuss', 'Fantasia', 64.90, 5, 'Kvothe conta sua trajetória, desde a infância até sua formação como músico e arcanista.', 'https://covers.openlibrary.org/b/id/8118041-L.jpg'),
 (21, 'O Cavaleiro Morto-Vivo', 'Rafael Yu', 'Fantasia', 39.90, 50, 'Ash passou boa parte de sua juventude viajando ao lado de seu mestre, um cavaleiro errante que percorre as estradas em busca de trabalho, fortuna e novas histórias para contar. Entre caçadas, missões e noites ao redor da fogueira, a vida dos dois sempre pareceu simples, apesar dos perigos que encontravam pelo caminho. Até que uma estranha doença começa a transformar os mortos em criaturas sedentas por sangue.\n\nQuando uma noite comum na floresta se transforma em um pesadelo, Ash se vê diante de algo que jamais poderia imaginar. Enquanto a praga se espalha e os mortos caminham novamente, ele precisará acompanhar seu mestre por um mundo cada vez mais perigoso — e descobrir por que algumas pessoas parecem resistir àquilo que condena tantas outras.\n\nEntre cavaleiros, monstros e segredos enterrados há muito tempo, Ash descobrirá que nem todos os mortos permanecem mortos. E que talvez o maior perigo não esteja entre eles.', 'https://placehold.co/300x450?text=O+Cavaleiro+Morto-Vivo');
 
 --

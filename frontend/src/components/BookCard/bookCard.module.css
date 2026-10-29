@@ -7,6 +7,8 @@
     font-family: var(--font-libre-baskerville);
 }
 
+/* Todas as capas ocupam a mesma proporção, mesmo que a imagem original seja diferente */
 .book_card img {
     width: 100%;
+    aspect-ratio: 2 / 3;
 }
