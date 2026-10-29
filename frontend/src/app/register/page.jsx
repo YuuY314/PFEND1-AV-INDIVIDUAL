@@ -33,22 +33,22 @@ export default function Register(){
         };
 
         try {
-            const requisition = await fetch("http://localhost:3001/api/cliente", {
+            const response = await fetch("http://localhost:3001/api/cliente", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData)
             });
 
-            const result = await requisition.json().catch(() => ({}));
+            const result = await response.json().catch(() => ({}));
 
-            if (!requisition.ok || result.sucesso === false)
+            if (!response.ok || result.sucesso === false)
                 throw new Error(result.message || result.erro || "Não foi possível cadastrar o cliente.");
 
             setMessage(result.message || "Cadastro realizado com sucesso!");
             form.reset();
-        } catch (erro) {
-            console.error("Erro ao cadastrar cliente:", erro);
-            setMessage(erro.message || "Não foi possível conectar ao servidor.");
+        } catch (error) {
+            console.error("Erro ao cadastrar cliente:", error);
+            setMessage(error.message || "Não foi possível conectar ao servidor.");
         }
     }
 

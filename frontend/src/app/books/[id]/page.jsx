@@ -4,7 +4,7 @@ import { useParams } from "next/navigation";
 import { useEffect, useState } from "react";
 
 import styles from "./book.module.css";
-import { formatarMoeda } from "@/utils/formatarMoeda";
+import { formatCurrency } from "@/utils/formatCurrency";
 
 export default function Book(){
     const params = useParams();
@@ -30,7 +30,7 @@ export default function Book(){
         setSending(true);
 
         try {
-            const requisition = await fetch(
+            const response = await fetch(
                 `http://localhost:3001/api/livro/${params.id}/estoque`,
                 {
                     method: "PATCH",
@@ -42,16 +42,16 @@ export default function Book(){
                 }
             );
 
-            const result = await requisition.json();
+            const result = await response.json();
 
-            if (!requisition.ok) {
+            if (!response.ok) {
                 throw new Error(result.erro || "Não foi possível concluir a compra.");
             }
 
             setBook(result.dados);
-            setError({ tipo: "success", texto: result.mensagem });
+            setError({ type: "success", text: result.mensagem });
         } catch (error) {
-            setError({ tipo: "danger", texto: error.message });
+            setError({ type: "danger", text: error.message });
         } finally {
             setSending(false);
         }
@@ -65,7 +65,7 @@ export default function Book(){
                     <div className="w-25">
                         <h1>{book.titulo}</h1>
                         <h4>{book.autor}</h4>
-                        <h2>{formatarMoeda(book.preco)}</h2>
+                        <h2>{formatCurrency(book.preco)}</h2>
                         <h5>Em estoque: {book.estoque}</h5>
 
                         <hr />
@@ -96,8 +96,8 @@ export default function Book(){
                                 {book.estoque === 0 ? "Esgotado" : "Comprar"}
                             </button>
                             {error && (
-                                <div className={`alert alert-${error.tipo} mb-0`} role="alert">
-                                    {error.texto}
+                                <div className={`alert alert-${error.type} mb-0`} role="alert">
+                                    {error.text}
                                 </div>
                             )}
                         </form>

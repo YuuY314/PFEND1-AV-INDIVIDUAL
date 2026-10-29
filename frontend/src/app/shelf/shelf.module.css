@@ -1,5 +1,5 @@
 .shelf_sidebar {
-    width: 20%;
+    width: 30%;
 }
 
 .shelf_main {
@@ -16,4 +16,25 @@
 
 .shelf_navbar p {
     margin: 0;
+}
+
+.shelf_sidebar input:checked {
+    background-color: #6A222F;
+    border-color: #6A222F;
+}
+
+.shelf_sidebar input:focus {
+    border-color: #6A222F;
+    box-shadow: 0 0 0 .25rem rgba(106, 34, 47, .25);
+}
+
+.clear_button {
+    background-color: #6A222F;
+    color: #FDFCFA;
+    font-weight: 600;
+    transition: .5s ease-in-out;
+}
+
+.clear_button:hover {
+    border: 1px solid #000000;
 }

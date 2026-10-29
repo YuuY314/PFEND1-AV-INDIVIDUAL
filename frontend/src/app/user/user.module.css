@@ -20,12 +20,12 @@
     font-weight: 500;
 }
 
-a.atalho {
+a.shortcut {
     background-color: #FDFCFA;
     transition: .2s ease-in-out;
 }
 
-a.atalho:hover {
+a.shortcut:hover {
     background-color: #F4EFE5;
     transform: translateY(-2px);
 }
@@ -34,12 +34,12 @@ a.atalho:hover {
     font-family: var(--font-libre-baskerville);
 }
 
-.link_ver_todos {
+.view_all_link {
     color: #6A222F;
     font-weight: 600;
     text-decoration: none;
 }
 
-.link_ver_todos:hover {
+.view_all_link:hover {
     text-decoration: underline;
 }

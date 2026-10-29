@@ -32,8 +32,11 @@
     color: #6A222F;
 }
 
-
-/* ========== Menu do usuário logado (dropdown do Bootstrap) ========== */
+.header .search_button {
+    background-color: #6A222F;
+    color: #FDFCFA;
+    font-weight: 600;
+}
 
 .user_placeholder {
     display: inline-block;
@@ -53,7 +56,6 @@
     background-color: #dddbd7;
 }
 
-/* O Bootstrap esconde o menu e mostra com a classe "show"; aqui mostramos no hover */
 .header .user_dropdown:hover .user_menu {
     display: block;
 }

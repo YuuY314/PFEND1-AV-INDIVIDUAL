@@ -7,24 +7,24 @@ import Link from "next/link";
 
 import BookCard from "@/components/BookCard";
 import RedirectButton from "@/components/RedirectButton";
-import { formatarMoeda } from "@/utils/formatarMoeda.js";
+import { formatCurrency } from "@/utils/formatCurrency.js";
 
-const atalhos = [
-    { titulo: "Meus pedidos", texto: "Acompanhe suas compras.", icone: "/bag.png", href: "#pedidos" },
-    { titulo: "Favoritos", texto: "Os livros que você quer ler.", icone: "/heart.png", href: "/favorites" },
-    { titulo: "Ofertas", texto: "Promoções para presentear.", icone: "/gift.png", href: "/shelf" },
-    { titulo: "Meus dados", texto: "Confira as informações da conta.", icone: "/user.png", href: "#dados" },
+const shortcuts = [
+    { title: "Meus pedidos", text: "Acompanhe suas compras.", icon: "/bag.png", href: "#orders" },
+    { title: "Favoritos", text: "Os livros que você quer ler.", icon: "/heart.png", href: "/favorites" },
+    { title: "Ofertas", text: "Promoções para presentear.", icon: "/gift.png", href: "/shelf" },
+    { title: "Meus dados", text: "Confira as informações da conta.", icon: "/user.png", href: "#account" },
 ];
 
-// TODO: trocar por dados da API quando a rota de pedidos existir (tabela "pedidos" já está na migration)
-const pedidosExemplo = [
-    { id: 1024, data: "21/10/2026", status: "Enviado", total: 89.8 },
-    { id: 1017, data: "02/10/2026", status: "Entregue", total: 45.9 },
-    { id: 1009, data: "18/09/2026", status: "Cancelado", total: 32 },
+// dados fixos (tabela "pedidos" já está na migration)
+const sampleOrders = [
+    { id: 1024, date: "21/10/2026", status: "Enviado", total: 89.8 },
+    { id: 1017, date: "02/10/2026", status: "Entregue", total: 45.9 },
+    { id: 1009, date: "18/09/2026", status: "Cancelado", total: 32 },
 ];
 
 // Cada status do ENUM de pedidos recebe uma cor de badge do Bootstrap
-const corDoStatus = {
+const statusColor = {
     Pendente: "warning",
     Confirmado: "info",
     Enviado: "primary",
@@ -33,12 +33,12 @@ const corDoStatus = {
 };
 
 export default function User(){
-    const [ usuario, setUsuario ] = useState(null);
-    const [ carregando, setCarregando ] = useState(true);
+    const [ user, setUser ] = useState(null);
+    const [ loading, setLoading ] = useState(true);
 
-    const [ livros, setLivros ] = useState([]);
-    const [ carregandoLivros, setCarregandoLivros ] = useState(true);
-    const [ erroLivros, setErroLivros ] = useState("");
+    const [ books, setBooks ] = useState([]);
+    const [ booksLoading, setBooksLoading ] = useState(true);
+    const [ booksError, setBooksError ] = useState("");
 
     // Rota protegida: confere a sessão no backend; quem não está logado volta para o login
     useEffect(() => {
@@ -50,27 +50,27 @@ export default function User(){
                 } else if (data.dados.tipo !== "cliente") {
                     window.location.href = "/";
                 } else {
-                    setUsuario(data.dados);
+                    setUser(data.dados);
                 }
             })
             .catch(() => { window.location.href = "/login"; })
-            .finally(() => setCarregando(false));
+            .finally(() => setLoading(false));
     }, []);
 
     useEffect(() => {
-        if (!usuario) return;
+        if (!user) return;
 
         fetch("http://localhost:3001/api/livro")
             .then((res) => {
                 if (!res.ok) throw new Error("Não foi possível carregar as sugestões.");
                 return res.json();
             })
-            .then((data) => setLivros((data.dados ?? []).slice(0, 6)))
-            .catch((error) => setErroLivros(error.message))
-            .finally(() => setCarregandoLivros(false));
-    }, [usuario]);
+            .then((data) => setBooks((data.dados ?? []).slice(0, 6)))
+            .catch((error) => setBooksError(error.message))
+            .finally(() => setBooksLoading(false));
+    }, [user]);
 
-    if (carregando || !usuario) {
+    if (loading || !user) {
         return (
             <main className="d-flex align-items-center justify-content-center">
                 <div className="spinner-border" role="status">
@@ -80,53 +80,50 @@ export default function User(){
         );
     }
 
-    const primeiroNome = usuario.nome?.trim().split(" ")[0] || "leitor";
+    const firstName = user.nome?.trim().split(" ")[0] || "leitor";
 
     return (
         <main>
-            {/* ===== Boas-vindas ===== */}
             <section className={`d-flex flex-column align-items-start gap-3 p-5 ${styles.user_banner}`}>
                 <p className={styles.alt_color}>ÁREA DO LEITOR</p>
-                <h1>Olá, {primeiroNome}!</h1>
+                <h1>Olá, {firstName}!</h1>
                 <p>Que bom ter você de volta. Veja seus pedidos, descubra novas leituras e cuide da sua conta.</p>
                 <RedirectButton buttonText="Explorar a estante" href="/shelf"/>
             </section>
 
             <div className="container py-5">
-                {/* ===== Atalhos ===== */}
                 <section className="row g-3 mb-5">
-                    {atalhos.map((atalho) => (
-                        <div key={atalho.titulo} className="col-6 col-lg-3">
-                            <Link href={atalho.href} className={`card h-100 text-decoration-none ${styles.atalho}`}>
+                    {shortcuts.map((shortcut) => (
+                        <div key={shortcut.title} className="col-6 col-lg-3">
+                            <Link href={shortcut.href} className={`card h-100 text-decoration-none ${styles.shortcut}`}>
                                 <div className="card-body d-flex flex-column gap-2">
-                                    <img src={atalho.icone} alt="" width="32" height="32"/>
-                                    <h5 className="card-title mb-0">{atalho.titulo}</h5>
-                                    <p className="card-text small mb-0">{atalho.texto}</p>
+                                    <img src={shortcut.icon} alt="" width="32" height="32"/>
+                                    <h5 className="card-title mb-0">{shortcut.title}</h5>
+                                    <p className="card-text small mb-0">{shortcut.text}</p>
                                 </div>
                             </Link>
                         </div>
                     ))}
                 </section>
 
-                {/* ===== Pedidos recentes + dados da conta ===== */}
                 <section className="row g-4 mb-5">
-                    <div id="pedidos" className="col-lg-8">
+                    <div id="orders" className="col-lg-8">
                         <div className="card h-100">
                             <div className="card-header d-flex align-items-center justify-content-between">
                                 <h5 className="mb-0">Pedidos recentes</h5>
-                                <span className="badge text-bg-secondary">{pedidosExemplo.length}</span>
+                                <span className="badge text-bg-secondary">{sampleOrders.length}</span>
                             </div>
-                            {pedidosExemplo.length > 0 ? (
+                            {sampleOrders.length > 0 ? (
                                 <ul className="list-group list-group-flush">
-                                    {pedidosExemplo.map((pedido) => (
-                                        <li key={pedido.id} className="list-group-item d-flex flex-wrap align-items-center justify-content-between gap-2">
+                                    {sampleOrders.map((order) => (
+                                        <li key={order.id} className="list-group-item d-flex flex-wrap align-items-center justify-content-between gap-2">
                                             <div>
-                                                <h6 className="mb-0">Pedido #{pedido.id}</h6>
-                                                <small>{pedido.data}</small>
+                                                <h6 className="mb-0">Pedido #{order.id}</h6>
+                                                <small>{order.date}</small>
                                             </div>
                                             <div className="d-flex align-items-center gap-3">
-                                                <span className={`badge text-bg-${corDoStatus[pedido.status]}`}>{pedido.status}</span>
-                                                <strong>{formatarMoeda(pedido.total)}</strong>
+                                                <span className={`badge text-bg-${statusColor[order.status]}`}>{order.status}</span>
+                                                <strong>{formatCurrency(order.total)}</strong>
                                             </div>
                                         </li>
                                     ))}
@@ -141,7 +138,7 @@ export default function User(){
                         </div>
                     </div>
 
-                    <div id="dados" className="col-lg-4">
+                    <div id="account" className="col-lg-4">
                         <div className="card h-100">
                             <div className="card-header">
                                 <h5 className="mb-0">Minha conta</h5>
@@ -149,9 +146,9 @@ export default function User(){
                             <div className="card-body d-flex flex-column justify-content-between gap-3">
                                 <dl className="row mb-0">
                                     <dt className="col-4">Nome</dt>
-                                    <dd className="col-8">{usuario.nome}</dd>
+                                    <dd className="col-8">{user.nome}</dd>
                                     <dt className="col-4">E-mail</dt>
-                                    <dd className="col-8 text-break mb-0">{usuario.email}</dd>
+                                    <dd className="col-8 text-break mb-0">{user.email}</dd>
                                 </dl>
                                 <span className="badge text-bg-light border align-self-start">Cliente</span>
                             </div>
@@ -159,26 +156,25 @@ export default function User(){
                     </div>
                 </section>
 
-                {/* ===== Sugestões de leitura ===== */}
                 <section>
                     <div className="d-flex align-items-end justify-content-between mb-3">
                         <div>
                             <h2 className={styles.section_title}>Escolhidos para você</h2>
                             <p className="mb-0">Algumas histórias da nossa estante para a sua próxima leitura.</p>
                         </div>
-                        <Link href="/shelf" className={styles.link_ver_todos}>Ver todos</Link>
+                        <Link href="/shelf" className={styles.view_all_link}>Ver todos</Link>
                     </div>
 
-                    {carregandoLivros ? (
+                    {booksLoading ? (
                         <div className="spinner-border" role="status">
                             <span className="visually-hidden">Carregando livros...</span>
                         </div>
-                    ) : erroLivros ? (
-                        <div className="alert alert-danger" role="alert">{erroLivros}</div>
-                    ) : livros.length > 0 ? (
+                    ) : booksError ? (
+                        <div className="alert alert-danger" role="alert">{booksError}</div>
+                    ) : books.length > 0 ? (
                         <div className="d-flex flex-wrap gap-4">
-                            {livros.map((livro) => (
-                                <BookCard key={livro.id} book={livro}/>
+                            {books.map((book) => (
+                                <BookCard key={book.id} book={book}/>
                             ))}
                         </div>
                     ) : (

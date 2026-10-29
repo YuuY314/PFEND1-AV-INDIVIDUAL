@@ -16,7 +16,7 @@ export default function Login(){
         const fields = new FormData(form);
 
         try {
-            const requisition = await fetch(
+            const response = await fetch(
                 "http://localhost:3001/api/autenticar/login",
                 {
                     method: "POST",
@@ -31,9 +31,9 @@ export default function Login(){
                 }
             );
 
-            const result = await requisition.json();
+            const result = await response.json();
 
-            if (!requisition.ok) {
+            if (!response.ok) {
                 throw new Error(
                     result.erro ||
                     result.mensagem ||

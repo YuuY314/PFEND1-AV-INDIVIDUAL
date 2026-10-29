@@ -6,19 +6,27 @@ import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Header(){
-    const [ usuario, setUsuario ] = useState(null);
-    const [ carregando, setCarregando ] = useState(true);
+    const [ user, setUser ] = useState(null);
+    const [ loading, setLoading ] = useState(true);
+    const [ searchTerm, setSearchTerm ] = useState("");
 
-    // Pergunta ao backend se existe alguém logado (sessão)
     useEffect(() => {
         fetch("http://localhost:3001/api/autenticar/me", { credentials: "include" })
             .then(res => res.json())
-            .then(data => setUsuario(data.autenticado ? data.dados : null))
-            .catch(() => setUsuario(null))
-            .finally(() => setCarregando(false));
+            .then(data => setUser(data.autenticado ? data.dados : null))
+            .catch(() => setUser(null))
+            .finally(() => setLoading(false));
     }, []);
 
-    async function sair() {
+    function handleSearch(event) {
+        event.preventDefault();
+
+        const text = searchTerm.trim();
+
+        window.location.href = text ? `/shelf?search=${encodeURIComponent(text)}` : "/shelf";
+    }
+
+    async function handleLogout() {
         await fetch("http://localhost:3001/api/autenticar/logout", {
             method: "POST",
             credentials: "include",
@@ -36,28 +44,35 @@ export default function Header(){
                 </div>
             </Link>
             <nav className="d-flex align-items-center justify-content-between w-50">
-                <div className="form-field w-50">
-                    <input type="text" className="form-control" id="fieldText" placeholder="Busque por título, autor ou uma nova história"/>
-                </div>
+                <form className="input-group w-50" role="search" onSubmit={handleSearch}>
+                    <input
+                        type="search"
+                        className="form-control"
+                        id="fieldText"
+                        value={searchTerm}
+                        onChange={(event) => setSearchTerm(event.target.value)}
+                        placeholder="Busque por título, autor ou uma nova história"
+                    />
+                    <button type="submit" className={`btn ${styles.search_button}`}>Buscar</button>
+                </form>
                 <div className="d-flex align-items-center gap-5">
                     <Link href="/favorites"><img src="/heart.png" alt="Favoritos"/></Link>
                     <Link href="/bag"><img src="/bag.png" alt="Sacola"/></Link>
-                    {carregando ? (
+                    {loading ? (
                         <span className="placeholder-glow">
                             <span className={`placeholder rounded ${styles.user_placeholder}`}></span>
                         </span>
-                    ) : usuario ? (
-                        // Dropdown do Bootstrap: o menu aparece no hover (regra em header.module.css)
+                    ) : user ? (
                         <div className={`dropdown ${styles.user_dropdown}`}>
                             <button type="button" className={`dropdown-toggle d-flex align-items-center gap-2 ${styles.user_toggle}`}>
                                 <img src="/user.png" alt=""/>
-                                <h5>{usuario.nome.split(" ")[0]}</h5>
+                                <h5>{user.nome.split(" ")[0]}</h5>
                             </button>
                             <ul className={`dropdown-menu dropdown-menu-end mt-0 ${styles.user_menu}`} data-bs-popper="static">
-                                <li><h6 className="dropdown-header">{usuario.email}</h6></li>
+                                <li><h6 className="dropdown-header">{user.email}</h6></li>
                                 <li><Link className="dropdown-item" href="/user">Minha área</Link></li>
                                 <li><hr className="dropdown-divider"/></li>
-                                <li><button type="button" className="dropdown-item" onClick={sair}>Sair</button></li>
+                                <li><button type="button" className="dropdown-item" onClick={handleLogout}>Sair</button></li>
                             </ul>
                         </div>
                     ) : (
