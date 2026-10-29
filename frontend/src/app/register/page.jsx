@@ -2,12 +2,19 @@
 
 import styles from "./register.module.css";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Link from "next/link";
 
 export default function Register(){
     const [message, setMessage] = useState("");
-    
+    const [isAdmin, setIsAdmin] = useState(false);
+
+    useEffect(() => {
+        const params = new URLSearchParams(window.location.search);
+
+        setIsAdmin(params.get("type") === "admin");
+    }, []);
+
     async function registerUser(event) {
         event.preventDefault();
         setMessage("");
@@ -33,7 +40,9 @@ export default function Register(){
         };
 
         try {
-            const response = await fetch("http://localhost:3001/api/cliente", {
+            const endpoint = isAdmin ? "administrador" : "cliente";
+
+            const response = await fetch(`http://localhost:3001/api/${endpoint}`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify(userData)
@@ -42,12 +51,12 @@ export default function Register(){
             const result = await response.json().catch(() => ({}));
 
             if (!response.ok || result.sucesso === false)
-                throw new Error(result.message || result.erro || "Não foi possível cadastrar o cliente.");
+                throw new Error(result.message || result.erro || `Não foi possível cadastrar o ${isAdmin ? "administrador" : "cliente"}.`);
 
-            setMessage(result.message || "Cadastro realizado com sucesso!");
+            setMessage(result.message || (isAdmin ? "Administrador cadastrado com sucesso!" : "Cadastro realizado com sucesso!"));
             form.reset();
         } catch (error) {
-            console.error("Erro ao cadastrar cliente:", error);
+            console.error("Erro ao cadastrar:", error);
             setMessage(error.message || "Não foi possível conectar ao servidor.");
         }
     }
@@ -63,7 +72,7 @@ export default function Register(){
             </section>
             <section className={`d-flex flex-column justify-content-center p-5 ${styles.register_form}`}>
                 <form onSubmit={registerUser} className="d-flex flex-column gap-3">
-                    <h2 className="text-center">Cadastro</h2>
+                    <h2 className="text-center">{isAdmin ? "Cadastro de administrador" : "Cadastro"}</h2>
                     <div className="form-field">
                         <label htmlFor="name" className="form-label">Nome</label>
                         <input type="text" className="form-control" name="name" id="name" placeholder="Insira o seu nome completo"/>
@@ -80,7 +89,12 @@ export default function Register(){
                         <label htmlFor="password-confirm" className="form-label">Confirmar senha</label>
                         <input type="password" className="form-control" name="password-confirm" id="password-confirm" placeholder="Confirme sua senha"/>
                     </div>
-                    <p className="text-end">Já é um leitor? <Link href="login">Entrar</Link></p>
+                    <p className="text-end">Já tem conta? <Link href="/login">Entrar</Link></p>
+                    <p className="text-end">
+                        {isAdmin
+                            ? <a href="/register">Cadastrar como leitor</a>
+                            : <a href="/register?type=admin">Cadastrar como administrador</a>}
+                    </p>
                     <button type="submit" className="btn">Cadastrar</button>
                     {message !== "" && <p>{message}</p>}
                 </form>

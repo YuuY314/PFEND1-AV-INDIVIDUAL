@@ -1,0 +1,58 @@
+.carousel_title {
+    font-family: var(--font-libre-baskerville);
+}
+
+.view_all_link {
+    color: #6A222F;
+    font-weight: 600;
+    text-decoration: none;
+    white-space: nowrap;
+}
+
+.view_all_link:hover {
+    text-decoration: underline;
+}
+
+.arrow_button {
+    width: 36px;
+    height: 36px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding-bottom: 4px;
+    font-size: 1.5rem;
+    line-height: 1;
+    background-color: #FDFCFA;
+    border: 1px solid #6A222F;
+    border-radius: 50%;
+    transition: .2s ease-in-out;
+}
+
+.arrow_button:hover {
+    background-color: #6A222F;
+    color: #FDFCFA;
+}
+
+.carousel_track {
+    display: flex;
+    gap: 1.5rem;
+    padding-block: .5rem 1rem;
+    overflow-x: auto;
+    scroll-snap-type: x proximity;
+    scrollbar-width: none;
+}
+
+.carousel_track::-webkit-scrollbar {
+    display: none;
+}
+
+/* Cada card mantém a largura própria e encaixa no início ao rolar */
+.carousel_track > * {
+    flex: 0 0 auto;
+    scroll-snap-align: start;
+    transition: transform .2s ease-in-out;
+}
+
+.carousel_track > *:hover {
+    transform: translateY(-4px);
+}

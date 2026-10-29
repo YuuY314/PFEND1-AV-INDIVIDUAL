@@ -5,6 +5,7 @@ import styles from "./shelf.module.css";
 import { useEffect, useState } from "react";
 
 import BookCard from "@/components/BookCard";
+import Pagination from "@/components/Pagination";
 import {
     collections,
     priceRanges,
@@ -13,6 +14,8 @@ import {
     normalize,
     sortOptions,
 } from "@/utils/filterBooks.js";
+
+const BOOKS_PER_PAGE = 12;
 
 export default function Shelf(){
     const [ bookList, setBookList ] = useState([]);
@@ -25,6 +28,7 @@ export default function Shelf(){
     const [ search, setSearch ] = useState("");
     const [ collectionKey, setCollectionKey ] = useState("");
     const [ readFilters, setReadFilters ] = useState(false);
+    const [ page, setPage ] = useState(1);
 
     const collection = collections[collectionKey];
 
@@ -52,6 +56,16 @@ export default function Shelf(){
             .finally(() => setLoading(false));
     }, []);
 
+    // Mudou qualquer filtro: o resultado é outro, então volta para a primeira página
+    useEffect(() => {
+        setPage(1);
+    }, [categories, priceRange, sortBy, search, collectionKey]);
+
+    function changePage(newPage) {
+        setPage(newPage);
+        window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
     function changeCategory(name) {
         const marked = categories.some((c) => normalize(c) === normalize(name));
 
@@ -64,14 +78,19 @@ export default function Shelf(){
 
     function clearFilters() {
         setCategories([]);
-        setPriceRange("todas");
-        setSortBy("destaque");
+        setPriceRange("all");
+        setSortBy("featured");
         setSearch("");
         setCollectionKey("");
     }
 
     const availableCategories = listCategories(bookList);
     const filteredBooks = filterBooks({ books: bookList, categories, priceRange, sortBy, collection: collectionKey, search });
+
+    const totalPages = Math.max(1, Math.ceil(filteredBooks.length / BOOKS_PER_PAGE));
+    const currentPage = Math.min(page, totalPages);
+    const firstIndex = (currentPage - 1) * BOOKS_PER_PAGE;
+    const pageBooks = filteredBooks.slice(firstIndex, firstIndex + BOOKS_PER_PAGE);
 
     const hasFilters = categories.length > 0 || priceRange !== "all" || sortBy !== "featured" || search !== "" || collection;
 
@@ -162,7 +181,12 @@ export default function Shelf(){
                     )}
 
                     <div className="d-flex align-items-center justify-content-between gap-3">
-                        <p>{filteredBooks.length} {filteredBooks.length === 1 ? "livro encontrado" : "livros encontrados"}</p>
+                        <p>
+                            {filteredBooks.length} {filteredBooks.length === 1 ? "livro encontrado" : "livros encontrados"}
+                            {filteredBooks.length > BOOKS_PER_PAGE && (
+                                <span className="text-secondary"> · exibindo {firstIndex + 1}–{firstIndex + pageBooks.length}</span>
+                            )}
+                        </p>
                         <div className="form-field">
                             <label htmlFor="sortBy" className="visually-hidden">Ordenar por</label>
                             <select
@@ -188,11 +212,14 @@ export default function Shelf(){
                 ) : bookList.length === 0 ? (
                     <h2>Oh não! Nossa estante está vazia! Volte mais tarde...</h2>
                 ) : filteredBooks.length > 0 ? (
-                    <section className="d-flex flex-wrap gap-4 justify-content-start">
-                        {filteredBooks.map((book) => (
-                            <BookCard key={book.id} book={book}/>
-                        ))}
-                    </section>
+                    <>
+                        <section className="d-flex flex-wrap gap-4 justify-content-start">
+                            {pageBooks.map((book) => (
+                                <BookCard key={book.id} book={book}/>
+                            ))}
+                        </section>
+                        <Pagination page={currentPage} totalPages={totalPages} onChange={changePage}/>
+                    </>
                 ) : (
                     <div className="alert alert-light d-flex align-items-center justify-content-between gap-3" role="alert">
                         Nenhum livro encontrado com esses filtros.

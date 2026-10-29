@@ -1,0 +1,18 @@
+.in_progress {
+    background-color: #F4EFE5;
+}
+
+.progress_title {
+    font-family: var(--font-libre-baskerville);
+}
+
+.progress_text {
+    max-width: 45ch;
+    margin: 0;
+}
+
+.progress_badge {
+    background-color: #C69D5E;
+    color: #3B111B;
+    font-weight: 600;
+}

@@ -1,0 +1,17 @@
+/* O Bootstrap 5.3 lê essas variáveis, então basta trocar as cores para as da marca */
+.pagination_brand {
+    --bs-pagination-color: #6A222F;
+    --bs-pagination-hover-color: #6A222F;
+    --bs-pagination-hover-bg: #F4EFE5;
+    --bs-pagination-focus-color: #6A222F;
+    --bs-pagination-focus-bg: #F4EFE5;
+    --bs-pagination-focus-box-shadow: 0 0 0 .25rem rgba(106, 34, 47, .25);
+    --bs-pagination-active-bg: #6A222F;
+    --bs-pagination-active-border-color: #6A222F;
+    --bs-pagination-active-color: #FDFCFA;
+    --bs-pagination-disabled-color: #9a8a8d;
+}
+
+.pagination_brand :global(.page-item.active) :global(.page-link) {
+    color: #FDFCFA;
+}
