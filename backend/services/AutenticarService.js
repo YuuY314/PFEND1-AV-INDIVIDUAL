@@ -6,29 +6,25 @@ export function criarAutenticarService({ clienteModel, administradorModel }) {
             throw new Error("Informe e-mail e senha");
         }
 
-        const clientes = await clienteModel.listarTodos();
-        const administradores = await administradorModel.listarTodos();
+        const cliente = await clienteModel.buscarPorEmail(email);
+        const administrador = await administradorModel.buscarPorEmail(email);
 
         const encontrados = [
-            ...clientes
-                .filter(u => u.email === email)
-                .map(u => ({
-                    id: u.id,
-                    nome: u.nome,
-                    email: u.email,
-                    senha: u.senha,
-                    tipo: "cliente"
-                })),
-            ...administradores
-                .filter(u => u.email === email)
-                .map(u => ({
-                    id: u.id,
-                    nome: u.nome,
-                    email: u.email,
-                    senha: u.senha,
-                    tipo: "administrador"
-                }))
-        ];
+            cliente && {
+                id: cliente.id,
+                nome: cliente.nome,
+                email: cliente.email,
+                senha: cliente.senha,
+                tipo: "cliente"
+            },
+            administrador && {
+                id: administrador.id,
+                nome: administrador.nome,
+                email: administrador.email,
+                senha: administrador.senha,
+                tipo: "administrador"
+            }
+        ].filter(Boolean);
 
         if (encontrados.length !== 1) {
             throw new Error("E-mail ou senha inválidos");

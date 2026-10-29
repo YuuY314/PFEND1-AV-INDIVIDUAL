@@ -1,11 +1,22 @@
 export function criarClienteModel({ pool }){
     async function listarTodos(){
-        const [linhas] = await pool.query("SELECT id, nome, email, senha FROM clientes");
+        const [linhas] = await pool.query("SELECT id, nome, email FROM clientes");
         return linhas;
     }
 
     async function buscarPorId(id){
         const [linhas] = await pool.query("SELECT id, nome, email FROM clientes WHERE id = ?", [id]);
+
+        if(linhas.length === 0){
+            return null;
+        }
+
+        return {...linhas[0]};
+    }
+
+    // Usado só pelo login: é o único lugar que precisa da coluna senha (hash)
+    async function buscarPorEmail(email){
+        const [linhas] = await pool.query("SELECT id, nome, email, senha FROM clientes WHERE email = ?", [email]);
 
         if(linhas.length === 0){
             return null;
@@ -60,5 +71,5 @@ export function criarClienteModel({ pool }){
         return {id: Number(id), nome: cliente.nome, email: cliente.email};
     }
 
-    return { listarTodos, buscarPorId, criar, deletarPorId, atualizar };
+    return { listarTodos, buscarPorId, buscarPorEmail, criar, deletarPorId, atualizar };
 }

@@ -43,7 +43,7 @@ export default function Login(){
 
             if (result.dados.tipo === "cliente") {
                 window.location.href = "/user";
-            } else if (result.dados.tipo === "profissional") {
+            } else if (result.dados.tipo === "administrador") {
                 window.location.href = "/admin";
             } else {
                 throw new Error("Tipo de usuário desconhecido.");

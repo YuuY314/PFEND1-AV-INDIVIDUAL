@@ -14,6 +14,17 @@ export function criarAdministradorModel({ pool }){
         return {...linhas[0]};
     }
 
+    // Usado só pelo login: é o único lugar que precisa da coluna senha (hash)
+    async function buscarPorEmail(email){
+        const [linhas] = await pool.query("SELECT id, nome, email, senha FROM administradores WHERE email = ?", [email]);
+
+        if(linhas.length === 0){
+            return null;
+        }
+
+        return {...linhas[0]};
+    }
+
     async function criar(administrador){
         const sql = "INSERT INTO administradores(nome, email, senha) VALUES(?, ?, ?)";
 
@@ -64,5 +75,5 @@ export function criarAdministradorModel({ pool }){
         };
     }
 
-    return { listarTodos, buscarPorId, criar, deletarPorId, atualizar };
+    return { listarTodos, buscarPorId, buscarPorEmail, criar, deletarPorId, atualizar };
 }

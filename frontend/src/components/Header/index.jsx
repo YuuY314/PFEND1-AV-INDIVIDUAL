@@ -70,7 +70,7 @@ export default function Header(){
                             </button>
                             <ul className={`dropdown-menu dropdown-menu-end mt-0 ${styles.user_menu}`} data-bs-popper="static">
                                 <li><h6 className="dropdown-header">{user.email}</h6></li>
-                                <li><Link className="dropdown-item" href="/user">Minha área</Link></li>
+                                <li><Link className="dropdown-item" href={user.tipo === "administrador" ? "/admin" : "/user"}>Minha área</Link></li>
                                 <li><hr className="dropdown-divider"/></li>
                                 <li><button type="button" className="dropdown-item" onClick={handleLogout}>Sair</button></li>
                             </ul>

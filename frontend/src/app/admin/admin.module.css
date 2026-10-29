@@ -1,0 +1,95 @@
+.admin_page {
+    background-color: #FDFCFA;
+}
+
+.admin_title {
+    font-family: var(--font-libre-baskerville);
+}
+
+.brand_button {
+    background-color: #6A222F;
+    border: 1px solid #6A222F;
+    color: #FDFCFA;
+    font-weight: 600;
+    transition: .3s ease-in-out;
+}
+
+.brand_button:hover,
+.brand_button:focus-visible {
+    background-color: #3B111B;
+    border-color: #3B111B;
+    color: #FDFCFA;
+}
+
+.stat_card {
+    background-color: #FFFFFF;
+    border: 1px solid #E8DFD0;
+    border-radius: .75rem;
+    padding: 1rem 1.25rem;
+    height: 100%;
+}
+
+.stat_card small {
+    display: block;
+    font-weight: 500;
+}
+
+.stat_card strong {
+    font-family: var(--font-libre-baskerville);
+    font-size: 1.75rem;
+}
+
+.filters,
+.table_card {
+    background-color: #FFFFFF;
+    border: 1px solid #E8DFD0;
+    border-radius: .75rem;
+}
+
+.filters {
+    padding: 1rem;
+}
+
+.filters input:focus,
+.filters select:focus {
+    border-color: #6A222F;
+    box-shadow: 0 0 0 .25rem rgba(106, 34, 47, .25);
+}
+
+.table_card {
+    overflow: hidden;
+}
+
+.table_card thead th {
+    background-color: #F4EFE5;
+    color: #6A222F;
+    font-weight: 600;
+    white-space: nowrap;
+}
+
+.cover {
+    width: 40px;
+    height: 58px;
+    object-fit: contain;
+    border-radius: .25rem;
+    background-color: #F4EFE5;
+}
+
+.cover_empty {
+    display: inline-block;
+}
+
+.book_title {
+    font-weight: 600;
+    max-width: 28ch;
+}
+
+.pagination_button {
+    color: #6A222F;
+    border-color: #E8DFD0;
+}
+
+.pagination_button:hover:not(:disabled) {
+    background-color: #F4EFE5;
+    color: #6A222F;
+}

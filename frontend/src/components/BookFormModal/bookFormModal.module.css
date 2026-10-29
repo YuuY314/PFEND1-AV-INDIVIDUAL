@@ -1,0 +1,36 @@
+.brand_button {
+    background-color: #6A222F;
+    border: 1px solid #6A222F;
+    color: #FDFCFA;
+    font-weight: 600;
+    transition: .3s ease-in-out;
+}
+
+.brand_button:hover,
+.brand_button:focus-visible {
+    background-color: #3B111B;
+    border-color: #3B111B;
+    color: #FDFCFA;
+}
+
+.brand_button:disabled {
+    background-color: #6A222F;
+    border-color: #6A222F;
+    color: #FDFCFA;
+}
+
+.preview {
+    width: 72px;
+    height: 104px;
+    object-fit: contain;
+    border: 1px solid #E8DFD0;
+    border-radius: .25rem;
+    background-color: #FDFCFA;
+}
+
+/* Fields in the brand color when focused */
+.form input:focus,
+.form textarea:focus {
+    border-color: #6A222F;
+    box-shadow: 0 0 0 .25rem rgba(106, 34, 47, .25);
+}

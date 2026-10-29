@@ -26,7 +26,7 @@ import { criarAdministradorRoutes } from "./routes/administradorRoutes.js";
 // Autenticar (service, controller e routes)
 import { criarAutenticarService } from "./services/AutenticarService.js";
 import { criarAutenticarController } from "./controllers/AutenticarController.js";
-import { criarAutenticarRoutes } from "./routes/AutenticarRoutes.js";
+import { criarAutenticarRoutes } from "./routes/autenticarRoutes.js";
 
 export const app = express();
 
